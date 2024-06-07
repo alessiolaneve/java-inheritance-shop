@@ -9,10 +9,23 @@ public class Televisori extends Prodotto {
 	private String dimensione;
 	private boolean smart;
 	
-	public Televisori() {
-		
+	public Televisori(String codice, String nome, String marca, double prezzo, int iva) {
+		super(codice, nome, marca, prezzo, iva);
 		this.dimensione = randomDimensione() + " pollici";
 		this.smart = true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Hai aggiunto questo televisore in magazzino : " + 
+	               super.getCodice() + " - " + 
+	               super.getNome() + " - " + 
+	               super.getMarca() + " - " + 
+	               super.getPrezzo() + "€ - " + 
+	               super.getIva() + "% - " + 
+	               this.dimensione + " - Smart :" + 
+	               this.smart + " - Prezzo totale : " + 
+	               calcolaPrezzo() + "€";
 	}
 	
 	public int randomDimensione() {

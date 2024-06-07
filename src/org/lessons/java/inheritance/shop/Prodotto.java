@@ -3,7 +3,7 @@ package org.lessons.java.inheritance.shop;
 /*
  * 
 Lo shop gestisce diversi tipi di prodotto:
-- Smarphone, caratterizzati anche dal codice IMEI e dalla quantità di memoria
+- Smartphone, caratterizzati anche dal codice IMEI e dalla quantità di memoria
 - Televisori, caratterizzati dalle dimensioni e dalla proprietà di essere smart oppure no
 - Cuffie, caratterizzate dal colore e se sono wireless o cablate
 Utilizzate l’ereditarietà per riutilizzare il codice di Prodotto nella stesura delle classi che
@@ -12,11 +12,11 @@ Utilizzate l’ereditarietà per riutilizzare il codice di Prodotto nella stesur
 
 
 public class Prodotto {
-	private String codice;
+	private static String codice;
 	private String nome;
 	private String marca;
 	private double prezzo;
-	private double iva;
+	private int iva;
 	
 	/*
 	 * Usate opportunamente i livelli di accesso (public, private),i costruttori,
@@ -24,8 +24,12 @@ public class Prodotto {
 	 */
 	
 	// costruttore
-		public Prodotto() {
-			this.codice = generaCodice();	
+		public Prodotto(String codice, String nome, String marca, double prezzo, int iva) {
+			Prodotto.codice = generaCodice();	
+			this.nome = nome;
+			this.marca = marca;
+			this.prezzo = prezzo;
+			this.iva = iva;
 		}
 		
 		public static String generaCodice() {
@@ -33,13 +37,26 @@ public class Prodotto {
 			double random = Math.random() * 100000000;
 			return String.valueOf((int)random);
 			}
-
+		
+		public Double calcolaPrezzo() {
+			Double prezzoIva = prezzo * iva / 100;
+			return prezzo + prezzoIva;
+			}
+		
+		public String toString() {
+			return codice + " - " + 
+					nome + " - " + 
+					marca + " - " + 
+					prezzo + "€ - " + 
+					iva + "% - " + 
+					calcolaPrezzo() + "€";
+		}
 		/*
 		 *  - il codice prodotto sia accessibile solo in lettura
 	 	 *	- gli altri attributi siano accessibili sia in lettura che in scrittura
 		 */
 		
-		public String getCodice() {
+		public static String getCodice() {
 			return codice;
 		}
 		
@@ -71,7 +88,7 @@ public class Prodotto {
 			return iva;
 		}
 
-		public void setIva(double iva) {
+		public void setIva(int iva) {
 			this.iva = iva;
 		}
 
